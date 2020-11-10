@@ -18,7 +18,7 @@ export default {
     return {
       periodButtons: [
         { value: '1d', display: 'minute', period: 'minute', limit: '1440'},
-        { value: '7d', display: 'minute', period: 'hour', limit: '168'},
+        { value: '7d', display: 'day', period: 'hour', limit: '168'},
         { value: '1m', display: 'day', period: 'day', limit: '30'},
         { value: '3m', display: 'day', period: 'day', limit: '90'},
         { value: '1y', display: 'month', period: 'day', limit: '365'}

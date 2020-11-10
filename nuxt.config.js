@@ -1,8 +1,8 @@
 export default {
-  target: 'static',
-  router: {
-    base: '/crypto-currency/'
-  },
+  // target: 'static',
+  // router: {
+  //   base: '/crypto-currency/'
+  // },
   ssr: false,
   head: {
     title: 'crypto-nuxt',

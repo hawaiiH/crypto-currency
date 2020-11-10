@@ -6,6 +6,7 @@
       :key="index">{{ btn.value }}
     </button>
     <Chart v-if="loaded"/>
+    <div v-else>LOADING</div>
   </div>
 </template>
 
@@ -48,30 +49,34 @@ export default {
     },
     selectPeriod(index) {
       this.crntPeriod = index;
+    },
+    async updateData() { 
+      await this.getChartData(this.selectedCoinName,
+                      this.periodButtons[this.crntPeriod].display,
+                      this.periodButtons[this.crntPeriod].value,
+                      this.periodButtons[this.crntPeriod].period,
+                      this.periodButtons[this.crntPeriod].limit)
+      setTimeout(() => this.updateData(), 10000)
     }
   },
   async mounted() {
     this.loaded = false;
-    await this.getChartData(this.selectedCoinName,
-                      this.periodButtons[this.crntPeriod].display,
-                      this.periodButtons[this.crntPeriod].value,
-                      this.periodButtons[this.crntPeriod].period,
-                      this.periodButtons[this.crntPeriod].limit);
+    await this.updateData();
     this.loaded = true;
   },
   watch: {
-    async selectedCoinName(newCoin, oldCoin) {
+    selectedCoinName(newCoin, oldCoin) {
       if (newCoin !== oldCoin) {
-        await this.getChartData(newCoin,
+        this.getChartData(newCoin,
                           this.periodButtons[this.crntPeriod].display,
                           this.periodButtons[this.crntPeriod].value,
                           this.periodButtons[this.crntPeriod].period,
-                          this.periodButtons[this.crntPeriod].limit);
+                          this.periodButtons[this.crntPeriod].limit)
       }
     },
-    async crntPeriod(newBtn, oldBtn) {
+    crntPeriod(newBtn, oldBtn) {
       if(newBtn !== oldBtn) {
-        await this.getChartData(this.selectedCoinName,
+        this.getChartData(this.selectedCoinName,
                   this.periodButtons[newBtn].display,
                   this.periodButtons[newBtn].value,
                   this.periodButtons[newBtn].period,

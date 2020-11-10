@@ -45,6 +45,44 @@ export default {
                 });
             });
     store.commit('setCoinsList', coinData)
+  },
+  methods: {
+    async getData() {
+      const coinData = [];
+      await this.$http.$get('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=USD')
+              .then( res => {
+                  res.Data.forEach( coin => {
+                      const fullName = coin.CoinInfo.FullName;
+                      const name = coin.CoinInfo.Name;
+                      const crSymbol = coin.DISPLAY.USD.FROMSYMBOL;
+                      const price = coin.RAW.USD.PRICE.toFixed(2);
+                      const priceNotFixed = coin.RAW.USD.PRICE;
+                      const change24hour = ((coin.RAW.USD.CHANGE24HOUR*100)/priceNotFixed).toFixed(2);
+                      const totalVolume = coin.DISPLAY.USD.TOTALVOLUME24HTO;
+                      const marketCap = coin.DISPLAY.USD.MKTCAP;
+                      const supply = coin.DISPLAY.USD.SUPPLY;
+                      const coinInfo = {
+                          fullName,
+                          name,
+                          crSymbol,
+                          price,
+                          change24hour,
+                          totalVolume,
+                          marketCap,
+                          supply
+                      }
+                      coinData.push(coinInfo)
+                  });
+              });
+      this.$store.commit('setCoinsList', coinData)
+    },
+    updateData(){
+      this.getData()
+      setTimeout(this.updateData, 5000)
+    }
+  },
+  mounted() {
+    this.updateData()
   }
 }
 </script>

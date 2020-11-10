@@ -44,7 +44,6 @@ export default {
             computedData.data.push({x: time*1000, y: cost});
           })
         })
-      console.log(computedData)
       this.$store.commit('setCoinChartInfo', computedData) 
     },
     selectPeriod(index) {

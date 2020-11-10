@@ -50,7 +50,6 @@ export default {
     coinChartInfo(newCoin, oldCoin) {
       if (newCoin !== oldCoin) {
         const {chartdata, options} = this.setChartData()
-        console.log(chartdata, options)
         this.renderChart(chartdata, options);
       }
     }

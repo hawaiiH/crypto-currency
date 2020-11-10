@@ -78,7 +78,7 @@ export default {
     },
     updateData(){
       this.getData()
-      setTimeout(this.updateData, 5000)
+      setTimeout(this.updateData, 30000)
     }
   },
   mounted() {

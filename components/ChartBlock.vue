@@ -56,7 +56,7 @@ export default {
                       this.periodButtons[this.crntPeriod].value,
                       this.periodButtons[this.crntPeriod].period,
                       this.periodButtons[this.crntPeriod].limit)
-      setTimeout(() => this.updateData(), 10000)
+      setTimeout(() => this.updateData(), 30000)
     }
   },
   async mounted() {
